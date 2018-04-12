@@ -9,6 +9,10 @@ namespace Sparta.Dal
 {
     public static class DALOverzicht
     {
+        //----------------------------------------------------------------------------------------------
+
+        //Cursussen
+
         public static List<Sparta.Model.Cursus> GetCursussen()
         {
             List<Sparta.Model.Cursus> cursussen = new List<Sparta.Model.Cursus>();
