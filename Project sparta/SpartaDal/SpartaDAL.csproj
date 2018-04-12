@@ -11,6 +11,7 @@
     <AssemblyName>SpartaDAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,8 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SpartaLogic">
+      <HintPath>..\..\..\sparta\Sparta(1)\SpartaLogic.dll</HintPath>
+    </Reference>
     <Reference Include="SpartaModel">
       <HintPath>..\..\..\sparta\Sparta(1)\SpartaModel.dll</HintPath>
+    </Reference>
+    <Reference Include="SpartaUI">
+      <HintPath>..\..\..\sparta\Sparta(1)\SpartaUI.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALConnection.cs" />
+    <Compile Include="DALGebruiker.cs" />
     <Compile Include="DALOverzicht.cs" />
     <Compile Include="DALProgramma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
