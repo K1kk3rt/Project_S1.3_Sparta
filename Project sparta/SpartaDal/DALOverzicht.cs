@@ -9,10 +9,6 @@ namespace Sparta.Dal
 {
     public static class DALOverzicht
     {
-        //----------------------------------------------------------------------------------------------
-
-        //Cursussen
-
         public static List<Sparta.Model.Cursus> GetCursussen()
         {
             List<Sparta.Model.Cursus> cursussen = new List<Sparta.Model.Cursus>();
@@ -102,7 +98,7 @@ namespace Sparta.Dal
                 persoon.Persoonid = (int)reader["PersoonId"];
                 persoon.Naam = (string)reader["Naam"];
                 persoon.Achternaam = (string)reader["Achternaam"];
-                persoon.Categorie = (Model.DeelnemerCategorie)reader["Catergorie"];
+                persoon.Categorie = (Model.DeelnemerCategorie)reader["Categorie"];
                 persoon.Geboortedatum = (DateTime)reader["GeboorteDatum"];
 
                 personen.Add(persoon);
