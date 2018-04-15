@@ -5,3 +5,11 @@ D:\Project S1.3 Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.dll
 D:\Project S1.3 Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.pdb
 D:\Project S1.3 Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.csprojResolveAssemblyReference.cache
 D:\Project S1.3 Sparta\Project sparta\SpartaDal\bin\Debug\SpartaUI.exe.config
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\bin\Debug\SpartaDAL.dll
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\bin\Debug\SpartaDAL.pdb
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\bin\Debug\SpartaUI.exe.config
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.csprojResolveAssemblyReference.cache
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.csproj.CoreCompileInputs.cache
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.csproj.CopyComplete
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.dll
+C:\Users\eugen\Documents\GitHub\Project_S1.3_Sparta\Project sparta\SpartaDal\obj\Debug\SpartaDAL.pdb

@@ -22,30 +22,21 @@ namespace Sparta.Dal
             SqlConnection connection = DALConnection.openConnectieDB();
             DALConnection.openConnectieDB();
 
-            //StringBuilder sbquery = new StringBuilder();
-            //sbquery.Append("SELECT PersoonId FROM Login WHERE AanmeldNaam = '@id' AND PwdHash = '@ww';");
-            //String sql = sbquery.ToString();
-            //SqlCommand command = new SqlCommand(sql, connection);
-
             StringBuilder sbquery = new StringBuilder();
-            sbquery.Append("SELECT PersoonId FROM Login WHERE AanmeldNaam = '@id';");
+            sbquery.Append("SELECT PersoonId FROM Login WHERE AanmeldNaam = 'jj' AND PwdHash = '4518675ca4c68e676ada63a756852224';");
+            //sbquery.Append("SELECT PersoonId FROM Login WHERE AanmeldNaam = '@id' AND PwdHash = '@ww';");
             String sql = sbquery.ToString();
             SqlCommand command = new SqlCommand(sql, connection);
-
-            //StringBuilder sbquery = new StringBuilder();
-            //sbquery.Append("SELECT PersoonId FROM Login WHERE PwdHash = '@ww';");
-            //String sql = sbquery.ToString();
-            //SqlCommand command = new SqlCommand(sql, connection);
 
             //aanmeldnaam
             SqlParameter IdParam = new SqlParameter("@id", System.Data.SqlDbType.NVarChar, 50, "AanmeldNaam");
             IdParam.Value = user.Naam;
             command.Parameters.Add(IdParam);
-            command.Prepare();
+
 
             //pwshash
             SqlParameter wwParam = new SqlParameter("@ww", System.Data.SqlDbType.NChar, 32, "PwdHash");
-            wwParam.Value = user.Pwdhash;
+            wwParam.Value = user.Pwdhash.GetHashCode();
             command.Parameters.Add(wwParam);
             command.Prepare();
 
@@ -162,31 +153,118 @@ namespace Sparta.Dal
             DALConnection.sluitConnectieDB(connection);            
         }
 
-        //public static void UpdatePwd(int loginid, string pwdhash)
-        //{
-        //    SqlConnection connection = DALConnection.openConnectieDB();
-        //    DALConnection.openConnectieDB();
+        public static void UpdatePwd(int loginid, string pwdhash)
+        {
+            Sparta.Model.Login aanmeld = new Model.Login(); 
 
-        //    StringBuilder sbquery = new StringBuilder();
-        //    sbquery.Append("INSERT INTO Login (AanmeldNaam,PwdHash, PersoonId) Values('@aanmeldnaam','@pwdhash'," + id + "); ");
-        //    String sql = sbquery.ToString();
-        //    SqlCommand command = new SqlCommand(sql, connection);
+            SqlConnection connection = DALConnection.openConnectieDB();
+            DALConnection.openConnectieDB();
 
-        //    //aanmeldnaam 
-        //    SqlParameter aanmeldnaamParam = new SqlParameter("@aanmeldnaam", System.Data.SqlDbType.NVarChar);
-        //    command.Parameters.Add(aanmeldnaamParam);
-        //    aanmeldnaamParam.Value = aanmeld.Naam;
-        //    command.Prepare();
+            StringBuilder sbquery = new StringBuilder();
+            sbquery.Append("INSERT INTO Login (AanmeldNaam,PwdHash, PersoonId) Values('@aanmeldnaam','@pwdhash'," + loginid + "); ");
+            String sql = sbquery.ToString();
+            SqlCommand command = new SqlCommand(sql, connection);
 
-        //    //wwhash
-        //    SqlParameter pwdhashParam = new SqlParameter("@pwdhash", System.Data.SqlDbType.NChar);
-        //    command.Parameters.Add(pwdhashParam);
-        //    pwdhashParam.Value = aanmeld.Pwdhash;
-        //    command.Prepare();
+            //aanmeldnaam 
+            SqlParameter aanmeldnaamParam = new SqlParameter("@aanmeldnaam", System.Data.SqlDbType.NVarChar);
+            command.Parameters.Add(aanmeldnaamParam);
+            aanmeldnaamParam.Value = aanmeld.Naam;
+            command.Prepare();
 
-        //    command.ExecuteNonQuery();
+            //wwhash
+            SqlParameter pwdhashParam = new SqlParameter("@pwdhash", System.Data.SqlDbType.NChar);
+            command.Parameters.Add(pwdhashParam);
+            pwdhashParam.Value = aanmeld.Pwdhash;
+            command.Prepare();
 
-        //    DALConnection.sluitConnectieDB(connection);
-        //}
+            command.ExecuteNonQuery();
+
+            DALConnection.sluitConnectieDB(connection);
+        }
+
+        public static Model.Persoon GetLoginId(int loginId, string pwdhash)
+        {
+            Model.Persoon p = new Model.Persoon();
+            SqlConnection connection = DALConnection.openConnectieDB();
+            DALConnection.openConnectieDB();
+
+            StringBuilder sbquery = new StringBuilder();
+            sbquery.Append("SELECT * FROM Login WHERE LoginId = " + loginId + ";");
+            String sql = sbquery.ToString();
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                p.Persoonid = (int)reader["PersoonId"];
+                p.Naam = (string)reader["AanmeldNaam"];
+            }
+            reader.Close();
+            DALConnection.sluitConnectieDB(connection);
+            return p;
+        }
+
+        public static List<Sparta.Model.Persoon> GetPersonen()
+        {
+            List<Sparta.Model.Persoon> personen = new List<Sparta.Model.Persoon>();
+
+            SqlConnection connection = DALConnection.openConnectieDB();
+            DALConnection.openConnectieDB();
+            StringBuilder sbquery = new StringBuilder();
+            sbquery.Append("SELECT PersoonId, Naam, Achternaam, Categorie, GeboorteDatum FROM Persoon;");
+            String sql = sbquery.ToString();
+
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Sparta.Model.Persoon persoon = new Sparta.Model.Persoon();
+
+                persoon.Persoonid = (int)reader["PersoonId"];
+                persoon.Naam = (string)reader["Naam"];
+                persoon.Achternaam = (string)reader["Achternaam"];
+                persoon.Categorie = (Model.DeelnemerCategorie)reader["Catergorie"];
+                persoon.Geboortedatum = (DateTime)reader["GeboorteDatum"];
+
+                personen.Add(persoon);
+            }
+            reader.Close();
+            DALConnection.sluitConnectieDB(connection);
+
+            return personen;
+        }
+
+        //Voeg toe
+
+        public static void GetLogin()
+        {
+            List<Sparta.Model.Persoon> logins = new List<Sparta.Model.Persoon>();
+
+            SqlConnection connection = DALConnection.openConnectieDB();
+            DALConnection.openConnectieDB();
+            StringBuilder sbquery = new StringBuilder();
+            sbquery.Append("INSERT INTO  Persoon (Naam, Achternaam, Categorie, GeboorteDatum) VALUES ('Naam', 'achternaam', 'Categorie', 'GeboorteDatum')");
+            String sql = sbquery.ToString();
+
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Sparta.Model.Persoon login = new Sparta.Model.Persoon();
+
+                login.Persoonid = (int)reader["PersoonId"];
+                login.Naam = (string)reader["Naam"];
+                login.Achternaam = (string)reader["Achternaam"];
+                login.Categorie = (Model.DeelnemerCategorie)reader["Catergorie"];
+                login.Geboortedatum = (DateTime)reader["GeboorteDatum"];
+            }
+            reader.Close();
+            DALConnection.sluitConnectieDB(connection);
+
+        }
+
     }
 }
